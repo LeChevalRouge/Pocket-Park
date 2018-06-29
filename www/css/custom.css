@@ -1,0 +1,30 @@
+.tabs .tab-item .icon.dlp {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height: 100%;
+  background-image: url('https://upload.wikimedia.org/wikipedia/fr/0/03/Parc_Disneyland_Paris_logo.png');
+  background-size:contain;
+}
+.tabs .tab-item .icon.wds {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height: 100%;
+  background-image: url('https://upload.wikimedia.org/wikipedia/fr/2/26/Parc_Walt_Disney_Studios_logo.png');
+  background-size:contain;
+}
+.tabs .tab-item .icon.asterix {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height: 100%;
+  background-image: url('https://upload.wikimedia.org/wikipedia/fr/2/26/Parc-ast%C3%A9rix.png');
+  background-size:contain;
+}
+
+@font-face {
+    font-family: wait;
+    src: url(ledfont.ttf);
+}
+@font-face {
+    font-family: title;
+    src: url(PacificAgain.ttf);
+}
