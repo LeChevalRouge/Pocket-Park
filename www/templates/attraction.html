@@ -1,0 +1,63 @@
+<link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet"> 
+<ion-view view-title="{{navTitle}} Attraction">
+    <ion-content>
+      <div class="card">
+        <div class="item item-text-wrap" style="height: 30vh; text-align: center; background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url('{{back}}'); background-position: center;">
+          <span ng-if="parkings.status=='Operating'" style="background: green; color:white; border-radius: 5px; padding-left:5px; padding-right:5px; font-family: 'Open Sans Condensed', sans-serif;">
+            Ouvert
+          </span>
+          <span ng-if="parkings.status=='Closed'" style="background: red; color:white; border-radius: 5px; padding-left:5px; padding-right:5px; font-family: 'Open Sans Condensed', sans-serif;">
+            Fermé
+          </span>
+          <span ng-if="parkings.status=='Refurbishment'" style="background: blue; color:white; border-radius: 5px; padding-left:5px; padding-right:5px; font-family: 'Open Sans Condensed', sans-serif;">
+            Rénovation
+          </span>
+          <span ng-if="parkings.status=='Down'" style="background: pink; color:white;border-radius: 5px; padding-left:5px; padding-right:5px; font-family: 'Open Sans Condensed', sans-serif;">
+            En panne
+          </span>
+          <h1 style="font-family: 'Spirax', cursive; margin-top: 10vh;">{{parkings.name}}</h1>
+        </div>
+        
+        <div class="item item-text-wrap" ng-if="parkings.schedule.closingTime!=null && parkings.status=='Operating'">Ouvert jusque :  <span ng-bind="parkings.schedule.closingTime | date:'HH\'h\'mm'"></span></div>
+
+        <div class="item item-divider" >
+          <div class="row">
+            <div class="col" ng-if="parkings.waitTime!=0">
+              <i class="icon ion-clock"></i> {{parkings.waitTime}} minutes d'attente
+            </div>
+            <div class="col" ng-if="parkings.waitTime==0">
+              <i class="icon ion-clock"></i> Aucun temps d'attente
+            </div>
+            <div class="col" ng-if="parkings.fastPass==true">
+              FastPass disponibles
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="card" ng-if="parkings.status=='Refurbishment'">
+        <div class="item item-text-wrap" style="background-color: orange; color:white;">
+          Réhabilitation prévue du __/__/2018 au __/__/2018
+        </div>
+      </div>
+      <div class="card">
+        <div class="item item-divider">
+          Informations
+        </div>
+        <div class="item item-text-wrap">
+          <div class="row">
+            <div class="col">
+              Min
+            </div>
+            <div class="col">
+              Seul
+            </div>
+            <div class="col">
+              Max
+            </div>
+          </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,67 @@
+<ion-view view-title="Accueil">
+    <ion-content>
+      <h4>Bienvenue, il est actuellement : {{date | date:'HH:mm'}}</h4>
+<div class="card">
+  <div class="item item-divider" style="background-color: green; color:white;" ng-if="(date | date:'HH:mm')<parkings[0].openingTime || (date | date:'HH:mm')>parkings[0].closingTime">
+    Disneyland Paris
+  </div>
+  <div class="item item-divider" style="background-color: orange; color:white;" ng-if="(date | date:'HH:mm')<parkings[0].openingTime && (date | date:'HH:mm')>parkings[0].closingTime">
+    Disneyland Paris
+  </div>
+  <div class="item item-text-wrap">
+    <p>Ouverture du Disneyland Park : <span ng-bind="parkings[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="parkings[0].closingTime | date:'HH:mm'"></span> </p>
+    <p>Heure de magie en plus : <span ng-bind="parkings[0].special[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="parkings[0].special[0].closingTime | date:'HH:mm'"></span> </p>
+  </div>
+  <div class="item item-text-wrap">
+    <p>Ouverture du Walt Disney Studios : <span ng-bind="wds[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="wds[0].closingTime | date:'HH:mm'"></span> </p>
+    <p>Heure de magie en plus : <span ng-bind="wds[0].special[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="wds[0].special[0].closingTime | date:'HH:mm'"></span> </p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="item item-divider" style="background-color: green; color:white;" ng-if="asterix[0].type=='Operating' && (asterix[0].closingTime<=(date | date:'HH:mm') && asterix[0].openingTime>=(date | date:'HH:mm'))">
+    Asterix
+  </div>
+  <div class="item item-divider" style="background-color: orange; color:white;" ng-if="asterix[0].type=='Operating' && (asterix[0].closingTime>=(date | date:'HH:mm') || asterix[0].openingTime<=(date | date:'HH:mm'))">
+    Asterix
+  </div>
+  <div class="item item-divider" style="background-color: red; color:white;" ng-if="asterix[0].type=='Closed'">
+    Asterix
+  </div>
+  <div class="item item-text-wrap">
+    <p>Ouverture du parc : <span ng-bind="asterix[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="asterix[0].closingTime | date:'HH:mm'"></span> </p>
+    <p  ng-if="asterix[1].type=='Operating'">Demain : <span ng-bind="asterix[1].openingTime | date:'HH:mm'"></span> à <span ng-bind="asterix[1].closingTime | date:'HH:mm'"></span> </p>
+    <p  ng-if="asterix[1].type=='Closed'">Demain : Fermé </p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="item item-divider" style="background-color: green; color:white;" ng-if="efteling[0].type=='Operating'">
+    Efteling
+  </div>
+  <div class="item item-divider" style="background-color: red; color:white;" ng-if="efteling[0].type=='Closed'">
+    Efteling
+  </div>
+  <div class="item item-text-wrap">
+    <p>Ouverture du parc : <span ng-bind="efteling[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="efteling[0].closingTime | date:'HH:mm'"></span> </p>
+    <p  ng-if="efteling[1].type=='Operating'">Demain : <span ng-bind="efteling[1].openingTime | date:'HH:mm'"></span> à <span ng-bind="efteling[1].closingTime | date:'HH:mm'"></span> </p>
+    <p  ng-if="efteling[1].type=='Closed'">Demain : Fermé </p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="item item-divider" style="background-color: green; color:white;" ng-if="europapark[0].type=='Operating'">
+    EuropaPark
+  </div>
+  <div class="item item-divider" style="background-color: red; color:white;" ng-if="europapark[0].type=='Closed'">
+    EuropaPark
+  </div>
+  <div class="item item-text-wrap">
+    <p>Ouverture du parc : <span ng-bind="europapark[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="europapark[0].closingTime | date:'HH:mm'"></span> </p>
+    <p  ng-if="europapark[1].type=='Operating'">Demain : <span ng-bind="europapark[1].openingTime | date:'HH:mm'"></span> à <span ng-bind="europapark[1].closingTime | date:'HH:mm'"></span> </p>
+    <p  ng-if="europapark[1].type=='Closed'">Demain : Fermé </p>
+  </div>
+</div>
+
+    </ion-content>
+  </ion-view>
