@@ -1,6 +1,11 @@
 /* Autor: Luis Bahamonde */
 
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'jett.ionic.filter.bar', 'ion-gallery', 'jett.ionic.scroll.sista', 'ngIOS9UIWebViewPatch', 'ion-affix'])
+.run(function(){
+    Pro.init('EFB48B43', {
+        appVersion: '2.0.1'
+    });
+})
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -18,6 +23,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
         //StatusBar.styleDefault();
         StatusBar.styleLightContent();
     }
+    var notificationOpenedCallback = function(jsonData) {
+      alert("Notification opened:\n" + JSON.stringify(jsonData));
+      console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+    };
+
+    // TODO: Update with your OneSignal AppId before running.
+    window.plugins.OneSignal
+      .startInit("f42e6ef0-97e4-4460-82a2-a9b4f903377d")
+      .handleNotificationOpened(notificationOpenedCallback)
+      .endInit();
 
   });
 })

@@ -4,20 +4,26 @@
         Actualisation en cours
       </ion-refresher>
     <div class="list">
-      <div class="item item-divider" ion-affix><i class="icon ion-car"></i> Attractions ouvertes</div>
-      <a class="item item-thumbnail-left item-text-wrap" ng-repeat="parking in parkings" ng-if="parking.status=='Operating' && parking.name!='??'" href="#/tab/attraction/{{park}}/{{parking.id}}">
+      <ion-item>
+	      <label class="item item-input">
+	        <i class="icon ion-search placeholder-icon"></i>
+	        <input type="text" ng-model="input.filterUser" placeholder="Rechercher une attraction">
+	      </label>
+	    </ion-item>
+	  <div class="item item-divider" ion-affix><i class="icon ion-car"></i> Attractions ouvertes</div>
+      <a class="item item-thumbnail-left item-text-wrap item-icon-right" ng-repeat="parking in parkings | filter:input.filterUser" ng-if="parking.status=='Operating' && parking.name!='??'" href="#/tab/attraction/{{park}}/{{parking.id}}">
           <img src="{{icon}}" style="max-height:100px">
           <h2>{{parking.name}}
-          <img src="https://redcdn.net/hpimg15/pics/658173fastpasslogo.gif" width="20px" height="auto" ng-if="parking.fastPass==true"/></h2>
+          <i class="icon ion-ios-fastforward-outline" ng-if="parking.fastPass==true"></i></h2>
           <p><span style="color: green; font-family: title;">Ouvert</span></p>
           <p ng-if="parking.waitTime!=0">Temps d'attente : <span style="font-family: wait; color: green;">{{parking.waitTime}}</span> <span ng-if="parking.waitTime<=1">minute</span><span ng-if="parking.waitTime>=2">minutes</span></p>
-           <p ng-if="parking.schedule.closingTime!=null">Ouvert jusque :  <span ng-bind="parking.schedule.closingTime | date:'HH\'h\'mm'"></span></p>
+           <p ng-if="parking.schedule.closingTime!=null">Ouvert jusque  <span ng-bind="parking.schedule.closingTime | date:'HH\'h\'mm'"></span></p>
           
       </a>
     </div>
     <div class="list">
       <div class="item item-divider" ion-affix><i class="icon ion-bike"></i> Attractions fermées</div>
-        <a class="item item-thumbnail-left item-text-wrap" ng-repeat="parking in parkings" ng-if="(parking.status=='Closed' || parking.status=='Down' || parking.status=='Refurbishment')  && parking.name!='??'" href="#/tab/attraction/dlp/{{parking.id}}">
+        <a class="item item-thumbnail-left item-text-wrap" ng-repeat="parking in parkings | filter:input.filterUser" ng-if="(parking.status=='Closed' || parking.status=='Down' || parking.status=='Refurbishment')  && parking.name!='??'" href="#/tab/attraction/dlp/{{parking.id}}">
           <img src="{{icon}}">
           <h2>{{parking.name}}</h2>
           <p ng-if="parking.status=='Closed'"><span style="color: red; font-family: title;">Fermé</span></p>

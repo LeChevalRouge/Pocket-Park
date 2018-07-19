@@ -1,67 +1,93 @@
 <ion-view view-title="Accueil">
     <ion-content>
-      <h4>Bienvenue, il est actuellement : {{date | date:'HH:mm'}}</h4>
+      <h4>Bienvenue, il est actuellement {{date | date:'HH\'h\'mm'}}</h4>
+  <div class="card" ng-if="msg!='null'">
+    <div class="item item-text-wrap" style="background-color: orange; color:white;">
+      <p style="color: white; font-weight: bold;">{{msg}}</p>
+    </div>
+  </div>
 <div class="card">
-  <div class="item item-divider" style="background-color: green; color:white;" ng-if="(date | date:'HH:mm')<parkings[0].openingTime || (date | date:'HH:mm')>parkings[0].closingTime">
+  <div class="item item-divider" style="background-color: green; color:white;" ng-if="hour>=dlp_opn && hour<=dlp_cld">
     Disneyland Paris
   </div>
-  <div class="item item-divider" style="background-color: orange; color:white;" ng-if="(date | date:'HH:mm')<parkings[0].openingTime && (date | date:'HH:mm')>parkings[0].closingTime">
+  <div class="item item-divider" style="background-color: orange; color:white;" ng-if="hour<dlp_opn || hour>dlp_cld">
     Disneyland Paris
   </div>
   <div class="item item-text-wrap">
-    <p>Ouverture du Disneyland Park : <span ng-bind="parkings[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="parkings[0].closingTime | date:'HH:mm'"></span> </p>
-    <p>Heure de magie en plus : <span ng-bind="parkings[0].special[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="parkings[0].special[0].closingTime | date:'HH:mm'"></span> </p>
+    <p>Ouverture du Disneyland Park : <span ng-bind="parkings[0].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="parkings[0].closingTime | date:'HH\'h\'mm'"></span> </p>
+    <p>Heure de magie en plus : <span ng-bind="parkings[0].special[0].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="parkings[0].special[0].closingTime | date:'HH\'h\'mm'"></span> </p>
   </div>
   <div class="item item-text-wrap">
-    <p>Ouverture du Walt Disney Studios : <span ng-bind="wds[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="wds[0].closingTime | date:'HH:mm'"></span> </p>
-    <p>Heure de magie en plus : <span ng-bind="wds[0].special[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="wds[0].special[0].closingTime | date:'HH:mm'"></span> </p>
+    <p>Ouverture du Walt Disney Studios : <span ng-bind="wds[0].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="wds[0].closingTime | date:'HH\'h\'mm'"></span> </p>
+    <p>Heure de magie en plus : <span ng-bind="wds[0].special[0].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="wds[0].special[0].closingTime | date:'HH\'h\'mm'"></span> </p>
   </div>
 </div>
 
 <div class="card">
-  <div class="item item-divider" style="background-color: green; color:white;" ng-if="asterix[0].type=='Operating' && (asterix[0].closingTime<=(date | date:'HH:mm') && asterix[0].openingTime>=(date | date:'HH:mm'))">
+  <div class="item item-divider" style="background-color: green; color:white;" ng-if="asterix[0].type=='Operating' && (hour>=ast_opn && hour<=ast_cld)">
     Asterix
   </div>
-  <div class="item item-divider" style="background-color: orange; color:white;" ng-if="asterix[0].type=='Operating' && (asterix[0].closingTime>=(date | date:'HH:mm') || asterix[0].openingTime<=(date | date:'HH:mm'))">
+  <div class="item item-divider" style="background-color: orange; color:white;" ng-if="asterix[0].type=='Operating' && (hour<ast_opn || hour>ast_cld)">
     Asterix
   </div>
   <div class="item item-divider" style="background-color: red; color:white;" ng-if="asterix[0].type=='Closed'">
     Asterix
   </div>
   <div class="item item-text-wrap">
-    <p>Ouverture du parc : <span ng-bind="asterix[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="asterix[0].closingTime | date:'HH:mm'"></span> </p>
-    <p  ng-if="asterix[1].type=='Operating'">Demain : <span ng-bind="asterix[1].openingTime | date:'HH:mm'"></span> à <span ng-bind="asterix[1].closingTime | date:'HH:mm'"></span> </p>
+    <p>Ouverture du parc : <span ng-bind="asterix[0].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="asterix[0].closingTime | date:'HH\'h\'mm'"></span> </p>
+    <p  ng-if="asterix[1].type=='Operating'">Demain : <span ng-bind="asterix[1].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="asterix[1].closingTime | date:'HH\'h\'mm'"></span> </p>
     <p  ng-if="asterix[1].type=='Closed'">Demain : Fermé </p>
   </div>
 </div>
 
 <div class="card">
-  <div class="item item-divider" style="background-color: green; color:white;" ng-if="efteling[0].type=='Operating'">
+  <div class="item item-divider" style="background-color: green; color:white;" ng-if="efteling[0].type=='Operating' && (hour>=eft_opn && hour<=eft_cld)">
+    Efteling
+  </div>
+  <div class="item item-divider" style="background-color: orange; color:white;" ng-if="efteling[0].type=='Operating' && (hour<eft_opn || hour>eft_cld)">
     Efteling
   </div>
   <div class="item item-divider" style="background-color: red; color:white;" ng-if="efteling[0].type=='Closed'">
     Efteling
   </div>
   <div class="item item-text-wrap">
-    <p>Ouverture du parc : <span ng-bind="efteling[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="efteling[0].closingTime | date:'HH:mm'"></span> </p>
-    <p  ng-if="efteling[1].type=='Operating'">Demain : <span ng-bind="efteling[1].openingTime | date:'HH:mm'"></span> à <span ng-bind="efteling[1].closingTime | date:'HH:mm'"></span> </p>
+    <p>Ouverture du parc : <span ng-bind="efteling[0].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="efteling[0].closingTime | date:'HH\'h\'mm'"></span> </p>
+    <p  ng-if="efteling[1].type=='Operating'">Demain : <span ng-bind="efteling[1].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="efteling[1].closingTime | date:'HH\'h\'mm'"></span> </p>
     <p  ng-if="efteling[1].type=='Closed'">Demain : Fermé </p>
   </div>
 </div>
 
 <div class="card">
-  <div class="item item-divider" style="background-color: green; color:white;" ng-if="europapark[0].type=='Operating'">
+  <div class="item item-divider" style="background-color: green; color:white;" ng-if="europapark[0].type=='Operating' && (hour>=epp_opn && hour<=epp_cld)">
+    EuropaPark
+  </div>
+  <div class="item item-divider" style="background-color: orange; color:white;" ng-if="europapark[0].type=='Operating' && (hour<epp_opn || hour>epp_cld)">
     EuropaPark
   </div>
   <div class="item item-divider" style="background-color: red; color:white;" ng-if="europapark[0].type=='Closed'">
     EuropaPark
   </div>
   <div class="item item-text-wrap">
-    <p>Ouverture du parc : <span ng-bind="europapark[0].openingTime | date:'HH:mm'"></span> à <span ng-bind="europapark[0].closingTime | date:'HH:mm'"></span> </p>
-    <p  ng-if="europapark[1].type=='Operating'">Demain : <span ng-bind="europapark[1].openingTime | date:'HH:mm'"></span> à <span ng-bind="europapark[1].closingTime | date:'HH:mm'"></span> </p>
+    <p>Ouverture du parc : <span ng-bind="europapark[0].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="europapark[0].closingTime | date:'HH\'h\'mm'"></span> </p>
+    <p  ng-if="europapark[1].type=='Operating'">Demain : <span ng-bind="europapark[1].openingTime | date:'HH\'h\'mm'"></span> à <span ng-bind="europapark[1].closingTime | date:'HH\'h\'mm'"></span> </p>
     <p  ng-if="europapark[1].type=='Closed'">Demain : Fermé </p>
   </div>
 </div>
-
+<div class="card">
+    <div class="item item-divider">
+      Quelques informations
+    </div>
+    <div class="item item-text-wrap">
+      <p>L'application traîte automatiquement les véritables données des parcs d'attractions.</p>
+      <p>Vous pouvez raffraîchir les temps d'attente du parc en tirant la liste vers le bas. Les fiches des attractions se mettent à jour automatiquement.</p>
+      <p>Les couleurs des parcs d'attractions sont définies selon leur calendrier d'ouverture :
+        <ul>
+          <li>Vert : Ouvert</li>
+          <li>Orange : Ouvert, mais pas à l'heure actuelle</li>
+          <li>Rouge : Fermé</li>
+        </ul>
+      </p>
+    </div>
+  </div>
     </ion-content>
   </ion-view>

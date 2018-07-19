@@ -5,16 +5,31 @@ angular.module('starter.controllers', [])
     $scope.navTitle="Accueil";
     
     $scope.reload = function () { 
-    $scope.date = new Date();
+    $scope.date= new Date();
+    $scope.hour = new Date().getHours();
+    //swal(new Date().getHours(););
     //$scope.date= "00:00";
+    $http.get("https://pocket-park.herokuapp.com/api/msg-pa", { params: { "key1": "value1", "key2": "value2" } })
+    .success(function(data) {
+        //alert(data.records[0].fields.etat);
+        $scope.msg=data;
+        //alert($scope.hour);
+        //alert(data[0].schedule.openingTime)
+    })
+    .error(function(data) {
+        swal("Erreur", data, "error");
+    });
     $http.get("https://pocket-park.herokuapp.com/api/dlp-time", { params: { "key1": "value1", "key2": "value2" } })
     .success(function(data) {
         //alert(data.records[0].fields.etat);
         $scope.parkings=data;
+        $scope.dlp_opn=new Date(data[0].openingTime).getHours();
+        $scope.dlp_cld=new Date(data[0].closingTime).getHours();
+        //alert($scope.hour);
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
     $http.get("https://pocket-park.herokuapp.com/api/wds-time", { params: { "key1": "value1", "key2": "value2" } })
     .success(function(data) {
@@ -23,34 +38,40 @@ angular.module('starter.controllers', [])
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
   $http.get("https://pocket-park.herokuapp.com/api/asterix-time", { params: { "key1": "value1", "key2": "value2" } })
     .success(function(data) {
         //alert(data.records[0].fields.etat);
         $scope.asterix=data;
+        $scope.ast_opn=new Date(data[0].openingTime).getHours();
+        $scope.ast_cld=new Date(data[0].closingTime).getHours();
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
   $http.get("https://pocket-park.herokuapp.com/api/efteling-time", { params: { "key1": "value1", "key2": "value2" } })
     .success(function(data) {
         //alert(data.records[0].fields.etat);
         $scope.efteling=data;
+        $scope.eft_opn=new Date(data[0].openingTime).getHours();
+        $scope.eft_cld=new Date(data[0].closingTime).getHours();
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
   $http.get("https://pocket-park.herokuapp.com/api/europapark-time", { params: { "key1": "value1", "key2": "value2" } })
     .success(function(data) {
         //alert(data.records[0].fields.etat);
         $scope.europapark=data;
+        $scope.epp_opn=new Date(data[0].openingTime).getHours();
+        $scope.epp_cld=new Date(data[0].closingTime).getHours();
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
     $timeout(function(){
       $scope.reload();
@@ -61,6 +82,7 @@ angular.module('starter.controllers', [])
 
 .controller('AgendaController', function($scope, $http, $timeout, $ionicLoading) {
     //$scope.navTitle='<img class="title-image" style="height: 27px;margin-top: 8px;" src="img/logoiclubs.png" />';
+    $scope.input = {}; 
     $scope.navTitle="Disneyland Paris - Disneyland Park";
     $scope.park="dlp";
     $scope.icon="https://upload.wikimedia.org/wikipedia/fr/0/03/Parc_Disneyland_Paris_logo.png";
@@ -73,7 +95,7 @@ angular.module('starter.controllers', [])
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
     $scope.doRefresh = function() {
     $scope.navTitle="Chargement...";
@@ -87,7 +109,7 @@ angular.module('starter.controllers', [])
         $scope.navTitle="Disneyland Paris - Disneyland Park";
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
 
       //Stop the ion-refresher from spinning
@@ -111,11 +133,10 @@ angular.module('starter.controllers', [])
           var object_by_id = $filter('filter')(data, {id: param1 })[0];
           $scope.parkings=object_by_id;
           $scope.navTitle=object_by_id.name;
-          
           //alert(data[0].schedule.openingTime)
       })
       .error(function(data) {
-          alert("Erreur : " + data);
+          swal("Erreur", data, "error");
       });
       $timeout(function(){
         $scope.reload();
@@ -136,7 +157,7 @@ angular.module('starter.controllers', [])
           //alert(data[0].schedule.openingTime)
       })
       .error(function(data) {
-          alert("Erreur : " + data);
+          swal("Erreur", data, "error");
       });
       $timeout(function(){
         $scope.reload();
@@ -157,7 +178,7 @@ angular.module('starter.controllers', [])
           //alert(data[0].schedule.openingTime)
       })
       .error(function(data) {
-          alert("Erreur : " + data);
+          swal("Erreur", data, "error");
            $scope.showAlert = function() {
             var alertPopup = $ionicPopup.alert({
               title: 'Don\'t eat that!',
@@ -188,7 +209,7 @@ angular.module('starter.controllers', [])
           //alert(data[0].schedule.openingTime)
       })
       .error(function(data) {
-          alert("Erreur : " + data);
+          swal("Erreur", data, "error");
       });
       $timeout(function(){
         $scope.reload();
@@ -209,7 +230,7 @@ angular.module('starter.controllers', [])
           //alert(data[0].schedule.openingTime)
       })
       .error(function(data) {
-          alert("Erreur : " + data);
+          swal("Erreur", data, "error");
       });
       $timeout(function(){
         $scope.reload();
@@ -221,6 +242,7 @@ angular.module('starter.controllers', [])
 
 .controller('WdsController', function($scope, $http, $timeout) {
     //$scope.navTitle='<img class="title-image" style="height: 27px;margin-top: 8px;" src="img/logoiclubs.png" />';
+    $scope.input = {}; 
     $scope.navTitle="Disneyland Paris - Walt Disney Studios";
     $scope.park="wds";
     $scope.icon="https://upload.wikimedia.org/wikipedia/fr/2/26/Parc_Walt_Disney_Studios_logo.png";
@@ -231,7 +253,7 @@ angular.module('starter.controllers', [])
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
     $scope.doRefresh = function() {
     $scope.navTitle="Chargement...";
@@ -245,7 +267,7 @@ angular.module('starter.controllers', [])
         $scope.navTitle="Disneyland Paris - Walt Disney Studios";
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
 
       //Stop the ion-refresher from spinning
@@ -258,6 +280,7 @@ angular.module('starter.controllers', [])
 
 .controller('EuropaparkController', function($scope, $http, $timeout) {
     //$scope.navTitle='<img class="title-image" style="height: 27px;margin-top: 8px;" src="img/logoiclubs.png" />';
+    $scope.input = {}; 
     $scope.navTitle="EuropaPark";
     $scope.park="europapark";
     $scope.icon="https://s3-eu-west-1.amazonaws.com/colruytgroup.live/venues/square/europapark.png";
@@ -268,7 +291,7 @@ angular.module('starter.controllers', [])
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
     $scope.doRefresh = function() {
     $scope.navTitle="Chargement...";
@@ -282,7 +305,7 @@ angular.module('starter.controllers', [])
         $scope.navTitle="EuropaPark";
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
 
       //Stop the ion-refresher from spinning
@@ -296,6 +319,7 @@ angular.module('starter.controllers', [])
 //ASTERIX
 .controller('AsterixCtrl', function($scope, $http, $timeout) {
     //$scope.navTitle='<img class="title-image" style="height: 27px;margin-top: 8px;" src="img/logoiclubs.png" />';
+    $scope.input = {}; 
     $scope.navTitle="Parc Asterix";
     $scope.park="asterix";
     $scope.icon="http://guide-o-parc.com/site/galeries/parc_22.gif";
@@ -306,7 +330,7 @@ angular.module('starter.controllers', [])
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
     $scope.doRefresh = function() {
     $scope.navTitle="Chargement...";
@@ -320,7 +344,7 @@ angular.module('starter.controllers', [])
         $scope.navTitle="Parc Asterix";
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
 
       //Stop the ion-refresher from spinning
@@ -333,6 +357,7 @@ angular.module('starter.controllers', [])
 
 .controller('EftelingCtrl', function($scope, $http, $timeout) {
     //$scope.navTitle='<img class="title-image" style="height: 27px;margin-top: 8px;" src="img/logoiclubs.png" />';
+    $scope.input = {}; 
     $scope.navTitle="Efteling";
     $scope.park="efteling";
     $scope.icon="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxQHEhUQBxMVEhEXGRYXFxcYFR0XFxIVGxoYFxcSHx8kHyssGBooHhcWITEhJSkrLi4uGB8/ODMwNyguOisBCgoKDg0OGxAQGzAlICUuLS0tLTAtLS0tLS8tLS0tLS0wLS0tLS0tLS0tLS0tLS0tLy0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4QMBEQACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABgcBBAUDAgj/xABCEAACAQMDAgQDBgQDAw0AAAABAgADBBEFEiEGMQcTQVEiYXEUMkKBkbFSYqHBFVOyIzSCFjNDVGNyc5KTlNLw8f/EABoBAQACAwEAAAAAAAAAAAAAAAACAwEEBQb/xAAyEQEAAgIBAwMBBgUEAwAAAAAAAQIDEQQSITEFE0EyIlFhcaGxFCOBkeEVUsHRMzRC/9oADAMBAAIRAxEAPwC8YCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcvUNUGn1VWuCVcfDtGW3AgbceoORj8/yoyZei3f5TrSbR2dJG3AEjHy9vlL0Hlb3Irlgn4WKn6gA/wB5Ct4t4ZmNPYybDhX+sEOLZFKVGIG4kbQp/GvufbIHM1L59W6Nd1tce69TuIMdptKn1MhAQEBAQEBAQEBAQEBAQEBAQEBAQEBA1bmySvk1VBJxzj4uDkc+mDyJCa1nyzFpjw+crd7qblgV7gMVOD2bII4P9iPQzM16o1J3ju0NI0RbJnYl+WO342Hw8EZwfiOSe8oxYIpaVl8k2b6XwbzPNDIE7swwCMAkj5cy6ttzMK5h8HT6dwTUuEDMwH3hkqAOFHt6n6zE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";
@@ -343,7 +368,7 @@ angular.module('starter.controllers', [])
         //alert(data[0].schedule.openingTime)
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
     $scope.doRefresh = function() {
     $scope.navTitle="Chargement...";
@@ -357,7 +382,7 @@ angular.module('starter.controllers', [])
         $scope.navTitle="Efteling";
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
 
       //Stop the ion-refresher from spinning
@@ -377,7 +402,7 @@ angular.module('starter.controllers', [])
         $scope.vlilles=data.records;
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
     $scope.doRefresh = function() {
     
@@ -390,7 +415,7 @@ angular.module('starter.controllers', [])
         $scope.vlilles=data.records;
     })
     .error(function(data) {
-        alert("Erreur : " + data);
+        swal("Erreur", data, "error");
     });
 
       //Stop the ion-refresher from spinning
