@@ -1,40 +1,22 @@
 /* Autor: Luis Bahamonde */
 
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'jett.ionic.filter.bar', 'ion-gallery', 'jett.ionic.scroll.sista', 'ngIOS9UIWebViewPatch', 'ion-affix'])
-.run(function(){
-    Pro.init('EFB48B43', {
-        appVersion: '2.0.1'
-    });
-})
 
-.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
 
-    setTimeout(function () {
-        navigator.splashscreen.hide();
-    }, 2000);
-
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        cordova.plugins.Keyboard.disableScroll(true);
-
-    }
-    if (window.StatusBar) {
-        //StatusBar.styleDefault();
-        StatusBar.styleLightContent();
-    }
+.run(function() {
+  document.addEventListener('deviceready', function () {
+    // Enable to debug issues.
+    // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+    
     var notificationOpenedCallback = function(jsonData) {
-      alert("Notification opened:\n" + JSON.stringify(jsonData));
       console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
     };
-
-    // TODO: Update with your OneSignal AppId before running.
+  
     window.plugins.OneSignal
       .startInit("f42e6ef0-97e4-4460-82a2-a9b4f903377d")
       .handleNotificationOpened(notificationOpenedCallback)
       .endInit();
-
-  });
+  }, false);
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicFilterBarConfigProvider, $ionicConfigProvider) {
