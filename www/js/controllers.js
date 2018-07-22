@@ -142,7 +142,7 @@ angular.module('starter.controllers', [])
       $http.get("https://pocketpark.fr/api/getinfo.php",  {params: { id: param1 }})
       .success(function(data) {
           $scope.infos=data;
-          alert(data);
+          //alert(data);
           //alert(data[0].schedule.openingTime)
       })
       .error(function(data) {
