@@ -142,6 +142,11 @@ angular.module('starter.controllers', [])
       $http.get("https://pocketpark.fr/api/getinfo.php",  {params: { id: param1 }})
       .success(function(data) {
           $scope.infos=data;
+          if(data[0].back=!null){
+              $scope.back=data[0].back;
+          } else {
+            $scope.back="https://upload.wikimedia.org/wikipedia/en/8/88/Sleeping_Beauty_Castle%2C_Disneyland%2C_Paris.jpg";
+          }
           //alert(data);
           //alert(data[0].schedule.openingTime)
       })
