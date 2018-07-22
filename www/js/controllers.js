@@ -127,12 +127,22 @@ angular.module('starter.controllers', [])
       $scope.back="https://upload.wikimedia.org/wikipedia/en/8/88/Sleeping_Beauty_Castle%2C_Disneyland%2C_Paris.jpg";
       $scope.reload = function () {
       console.log("Chargement")
+      var param1 = $stateParams.id;
       $http.get("https://pocket-park.herokuapp.com/api/dlp-mk")
       .success(function(data) {
           var param1 = $stateParams.id;
           var object_by_id = $filter('filter')(data, {id: param1 })[0];
           $scope.parkings=object_by_id;
           $scope.navTitle=object_by_id.name;
+          //alert(data[0].schedule.openingTime)
+      })
+      .error(function(data) {
+          swal("Erreur", data, "error");
+      });
+      $http.get("https://pocketpark.fr/api/getinfo.php",  {params: { id: param1 }})
+      .success(function(data) {
+          $scope.infos=data;
+          alert(data);
           //alert(data[0].schedule.openingTime)
       })
       .error(function(data) {

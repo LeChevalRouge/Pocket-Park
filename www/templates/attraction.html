@@ -1,4 +1,4 @@
-<link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet"> 
 <ion-view view-title="Attraction">
   <ion-nav-title>{{navTitle}}</ion-nav-title>
@@ -17,7 +17,7 @@
           <span ng-if="parkings.status=='Down'" style="background: pink; color:white;border-radius: 5px; padding-left:5px; padding-right:5px; font-family: 'Open Sans Condensed', sans-serif;">
             En panne
           </span>
-          <h1 style="font-family: 'Spirax', cursive; margin-top: 10vh;">{{parkings.name}}</h1>
+          <h1 style="font-family: 'Pacifico', cursive; margin-top: 10vh;">{{parkings.name}}</h1>
         </div>
         
         <div class="item item-text-wrap" ng-if="parkings.schedule.closingTime!=null && parkings.status=='Operating'">Ouvert jusque :  <span ng-bind="parkings.schedule.closingTime | date:'HH\'h\'mm'"></span></div>
@@ -40,7 +40,7 @@
 
       <div class="card" ng-if="parkings.status=='Refurbishment'">
         <div class="item item-text-wrap" style="background-color: orange; color:white;">
-          Réhabilitation prévue du __/__/2018 au __/__/2018
+          <i class="icon ion-looping"></i>Réhabilitation prévue du __/__/2018 au __/__/2018
         </div>
       </div>
       <div class="card">
@@ -57,6 +57,16 @@
             </div>
             <div class="col">
               Max
+            </div>
+          </div>
+        </div>
+        <div class="item item-text-wrap">
+          <div class="row">
+            <div class="col">
+              Durée
+            </div>
+            <div class="col">
+              {{infos[0].content}} mins
             </div>
           </div>
         </div>
