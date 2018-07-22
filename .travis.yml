@@ -13,6 +13,7 @@ branches:
   - master
 
 install:
+  - curl -L https://www.npmjs.org/install.sh | sh
   - npm cache clean
   - npm install
   - npm install -g cordova
